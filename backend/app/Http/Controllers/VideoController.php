@@ -13,10 +13,6 @@ class VideoController extends Controller
 
     public function store(\Illuminate\Http\Request $request)
     {
-        if ($request->user()->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -47,11 +43,7 @@ class VideoController extends Controller
     }
 
     public function destroy(\App\Models\Video $video)
-    {
-        if (request()->user()->role !== 'admin') {
-            return response()->json(['message' => 'Unauthorized'], 403);
-        }
-        
+    {        
         $video->delete();
         return response()->noContent();
     }
