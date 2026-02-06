@@ -11,15 +11,8 @@ class VideoController extends Controller
         return \App\Models\Video::latest()->get();
     }
 
-    public function store(\Illuminate\Http\Request $request)
+    public function store(\App\Http\Requests\StoreVideoRequest $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'video' => 'required|file|mimetypes:video/mp4,video/quicktime,video/x-msvideo|max:102400',
-        ]);
-
         $path = $request->file('video')->store('videos', 'public');
 
         $video = \App\Models\Video::create([
