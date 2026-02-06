@@ -75,3 +75,4 @@ A robust video e-commerce platform built with Laravel (Backend) and Next.js (Fro
 ## Technology Stack
 - **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
 - **Backend**: Laravel 11, Sanctum, MySQL
+# laravel_project_assignment
