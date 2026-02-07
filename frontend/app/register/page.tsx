@@ -43,9 +43,12 @@ export default function RegisterPage() {
                 throw new Error(data.message || "Registration failed");
             }
 
-            // Call register from context to update state and redirect
-            showToast("Registration successful!", "success");
-            register(data.access_token, data.user);
+            // Inform the user and redirect to login after a delay
+            showToast("Account created successfully! Redirecting to login...", "success");
+
+            setTimeout(() => {
+                router.push("/login");
+            }, 2500);
 
         } catch (err: any) {
             console.error("Catch error:", err);
