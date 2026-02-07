@@ -14,6 +14,16 @@ export default function Home() {
   const router = useRouter();
   const backendUrl = "http://localhost:8000";
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      if (user?.role === 'admin') {
+        router.replace('/admin/dashboard');
+      } else {
+        router.replace('/dashboard');
+      }
+    }
+  }, [isAuthenticated, user, router]);
+
   const handleBuy = async (videoId: number) => {
     if (!isAuthenticated) {
       showToast("Please login to buy videos", "info");
