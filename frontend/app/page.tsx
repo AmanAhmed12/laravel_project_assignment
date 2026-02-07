@@ -95,28 +95,73 @@ export default function Home() {
       .catch((err) => console.error('Videos fetch error:', err));
   }, []);
 
+  const scrollToCollection = () => {
+    document.getElementById("collection")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToFeatures = () => {
+    document.getElementById("features")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
-      <section className="relative pt-20 pb-24 overflow-hidden">
+      <section className="relative pt-24 pb-32 overflow-hidden">
         <div className="container mx-auto px-6 relative z-10 text-center">
-          <h1 className="text-6xl md:text-7xl font-bold text-gradient mb-8 leading-tight">
-            Elevate Your <br />
-            <span className="text-indigo-500">Video Experience</span>
+          <div className="inline-block px-4 py-1.5 mb-8 rounded-full border border-indigo-500/20 bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-[0.2em] animate-fade-in">
+            Premium Cinematic Marketplace
+          </div>
+          <h1 className="text-6xl md:text-8xl font-bold text-gradient mb-8 leading-tight tracking-tighter">
+            Cinema in Your <br />
+            <span className="text-indigo-500">Digital Library</span>
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Discover a curated collection of premium high-definition videos.
-            Own your favorite content forever with a single click.
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-16 leading-relaxed">
+            Access a curated selection of ultra high-definition productions.
+            No subscriptions. No limits. Own your content forever.
           </p>
-          <div className="flex justify-center gap-6">
-            <button className="btn-primary !px-10 !py-4 text-lg">Browse Collection</button>
-            <button className="px-10 py-4 rounded-xl border border-white/10 hover:bg-white/5 transition-all font-semibold text-lg">Learn More</button>
+          <div className="flex flex-col sm:flex-row justify-center gap-6 items-center">
+            <button
+              onClick={scrollToCollection}
+              className="btn-primary !px-12 !py-5 text-lg w-full sm:w-auto"
+            >
+              Browse Collection
+            </button>
+            <button
+              onClick={scrollToFeatures}
+              className="px-12 py-5 rounded-2xl border border-white/10 hover:bg-white/5 transition-all font-bold text-lg w-full sm:w-auto flex items-center justify-center gap-2 group"
+            >
+              Learn More
+              <svg className="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+            </button>
           </div>
         </div>
       </section>
 
+      {/* Features Section */}
+      <section id="features" className="container mx-auto px-6 py-32">
+        <div className="text-center mb-20">
+          <h2 className="text-4xl font-bold mb-4">Why Choose VideoLux?</h2>
+          <p className="text-gray-500 max-w-xl mx-auto uppercase tracking-widest text-xs font-bold">Standard Setting in Digital Distribution</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {[
+            { title: "Ultra HD Quality", desc: "Experience videos in 4K HDR, optimized for any screen size without compromise.", icon: "M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" },
+            { title: "Forever Ownership", desc: "One-time purchase gives you lifetime access to your library. No recurring fees.", icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" },
+            { title: "Instant Playback", desc: "Start watching immediately after acquisition with our high-speed global CDN.", icon: "M13 10V3L4 14h7v7l9-11h-7z" }
+          ].map((feature, i) => (
+            <div key={i} className="glass-card p-10 group hover:bg-white/[0.05]">
+              <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 mb-8 border border-indigo-500/20 group-hover:scale-110 group-hover:rotate-6 transition-all">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={feature.icon} /></svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
+              <p className="text-gray-400 leading-relaxed">{feature.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Video Grid */}
-      <div className="container mx-auto px-6">
+      <div id="collection" className="container mx-auto px-6 pt-32">
         <div className="flex items-center justify-between mb-12">
           <h2 className="text-3xl font-bold">Trending Now</h2>
           <div className="h-[1px] flex-1 bg-white/10 mx-8"></div>
