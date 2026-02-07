@@ -53,71 +53,95 @@ export default function UploadPage() {
     if (!user || user.role !== 'admin') return <p className="text-center p-8">Checking authentication...</p>;
 
     return (
-        <div className="max-w-2xl mx-auto p-8 bg-white rounded-lg shadow-lg mt-8">
-            <h1 className="text-3xl font-bold mb-8 text-center text-gray-800">Upload New Video</h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Video Title</label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-                        placeholder="Enter video title"
-                        required
-                    />
+        <div className="max-w-3xl mx-auto px-6 py-12">
+            <div className="absolute top-1/4 right-1/2 w-80 h-80 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+            <header className="text-center mb-12">
+                <h1 className="text-5xl font-bold text-gradient mb-3 tracking-tight">Content Studio</h1>
+                <p className="text-gray-400">Expand your premium library with high-definition content.</p>
+            </header>
+
+            <form onSubmit={handleSubmit} className="glass-card p-10 space-y-8 animate-fade-in">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="col-span-1">
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Video Title</label>
+                        <input
+                            type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-gray-600"
+                            placeholder="Enter cinematic title"
+                            required
+                        />
+                    </div>
+
+                    <div className="col-span-1">
+                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Market Price ($)</label>
+                        <div className="relative">
+                            <span className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500 font-mono italic">$</span>
+                            <input
+                                type="number"
+                                step="0.01"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                className="w-full bg-white/5 border border-white/10 rounded-2xl pl-10 pr-5 py-4 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-gray-600 font-mono"
+                                placeholder="0.00"
+                                required
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <div>
-                    <label className="block text-gray-700 font-bold mb-2">Description</label>
+                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">Production Description</label>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2 h-32 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-                        placeholder="Enter video description"
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 h-40 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-gray-600 resize-none leading-relaxed"
+                        placeholder="Describe the cinematic experience..."
                         required
                     />
                 </div>
 
-                <div>
-                    <label className="block text-gray-700 font-bold mb-2">Price ($)</label>
-                    <input
-                        type="number"
-                        step="0.01"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-                        placeholder="0.00"
-                        required
-                    />
-                </div>
-
-                <div className="bg-gray-50 p-4 rounded-lg border border-dashed border-gray-300">
-                    <label className="block text-gray-700 font-bold mb-2">Video File</label>
+                <div className="group relative bg-white/[0.02] hover:bg-white/[0.04] p-10 rounded-3xl border border-dashed border-white/10 hover:border-indigo-500/50 transition-all text-center">
                     <input
                         type="file"
                         accept="video/*"
                         onChange={(e) => setVideoFile(e.target.files?.[0] || null)}
-                        className="w-full text-gray-500"
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         required
                     />
-                    <p className="text-xs text-gray-500 mt-2">Supported formats: MP4, AVI, MOV (Max 100MB)</p>
+                    <div className="relative z-0 pointer-events-none">
+                        <div className="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4 text-indigo-400 group-hover:scale-110 transition-transform duration-500">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
+                        </div>
+                        <p className="text-white font-bold mb-1">{videoFile ? videoFile.name : 'Select or Drop Production File'}</p>
+                        <p className="text-xs text-gray-500 uppercase tracking-widest">MP4, AVI, MOV (MAX 100MB)</p>
+                    </div>
                 </div>
 
-                <div className="flex gap-4 pt-4">
+                <div className="flex gap-4 pt-6">
                     <button
                         type="button"
                         onClick={() => router.back()}
-                        className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 transition text-gray-700"
+                        className="px-8 py-4 border border-white/10 rounded-2xl hover:bg-white/5 transition-all font-bold text-gray-400"
                     >
-                        Cancel
+                        Back
                     </button>
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex-1 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition disabled:bg-blue-400 font-bold"
+                        className="flex-1 btn-primary !py-4 text-lg relative overflow-hidden group"
                     >
-                        {loading ? "Uploading..." : "Upload Video"}
+                        <span className={loading ? 'opacity-0' : 'opacity-100 flex items-center justify-center gap-2'}>
+                            Initialize Broadcast
+                            <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                        </span>
+                        {loading && (
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="w-6 h-6 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+                            </div>
+                        )}
                     </button>
                 </div>
             </form>
