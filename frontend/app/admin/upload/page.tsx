@@ -2,10 +2,12 @@
 import { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useRouter } from "next/navigation";
+import { useToast } from "../../../context/ToastContext";
 
 export default function UploadPage() {
     const { token, user } = useAuth();
     const router = useRouter();
+    const { showToast } = useToast();
     const [loading, setLoading] = useState(false);
 
     // Form state
@@ -16,7 +18,7 @@ export default function UploadPage() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!videoFile) return alert("Please select a video file");
+        if (!videoFile) return showToast("Please select a video file", "info");
 
         setLoading(true);
         const formData = new FormData();
@@ -39,10 +41,10 @@ export default function UploadPage() {
                 throw new Error(err.message || "Upload failed");
             }
 
-            alert("Video uploaded successfully!");
+            showToast("Video uploaded successfully!", "success");
             router.push("/admin/dashboard");
         } catch (error: any) {
-            alert(error.message);
+            showToast(error.message, "error");
         } finally {
             setLoading(false);
         }

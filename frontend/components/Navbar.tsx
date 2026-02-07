@@ -20,6 +20,9 @@ export default function Navbar() {
                             <Link href="/admin/upload" className="hover:text-gray-300">Upload</Link>
                         </>
                     )}
+                    {isAuthenticated && user?.role !== 'admin' && (
+                        <Link href="/dashboard" className="hover:text-gray-300">My Purchases</Link>
+                    )}
                     {isAuthenticated ? (
                         <div className="flex gap-4 items-center">
                             <span className="text-sm text-gray-400">Welcome, {user?.name}</span>
@@ -31,12 +34,17 @@ export default function Navbar() {
                             </button>
                         </div>
                     ) : (
-                        <Link href="/login" className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-700 transition">
-                            Admin Login
-                        </Link>
+                        <div className="flex gap-4">
+                            <Link href="/login" className="text-gray-300 hover:text-white transition">
+                                Login
+                            </Link>
+                            <Link href="/register" className="bg-blue-600 px-3 py-1 rounded hover:bg-blue-700 transition">
+                                Register
+                            </Link>
+                        </div>
                     )}
                 </div>
-            </div>
-        </nav>
+            </div >
+        </nav >
     );
 }
