@@ -8,10 +8,20 @@ export default function Home() {
   const backendUrl = "http://localhost:8000";
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`)
-      .then((res) => res.json())
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`, {
+      headers: {
+        'Accept': 'application/json',
+      },
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`API Error: ${res.status} ${res.statusText}\n${text}`);
+        }
+        return res.json();
+      })
       .then((data) => setVideos(data))
-      .catch((err) => console.error(err));
+      .catch((err) => console.error('Videos fetch error:', err));
   }, []);
 
   return (
